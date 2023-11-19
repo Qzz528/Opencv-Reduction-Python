@@ -4,20 +4,20 @@
 
 对于彩色图片的每个像素点，其颜色由RGB三个维度的值表示，RGB分别代表红色、绿色、蓝色成分的多少。因此一组RGB值（对应RGB立方体内的每一个点）代表了一种颜色，反之亦然，任意一种颜色可用一组RGB值表示（是RGB立方体内的一个点）。
 
-![RGBspace.png](auxiliary\RGBspace.png)
+![RGBspace.png](auxiliary/RGBspace.png)
 
 但对于人而言，对一个颜色，直观感知到的是其色调、亮度等信息，而这些信息在RGB值的表示下并不直观。单看RGB值的大小，人很难感受到其对应的色调等信息，自然也不便于对其修改。
 
 通过定义一种映射变换，将RGB立方体映射为HSV圆锥（或者圆柱）：RGB立方体的每一个位置（每一种颜色），都有一个对应的HSV圆锥中的位置。这样任意一种颜色将对应一组HSV值（即HSV圆锥中的一个位置），而这个HSV值可以直观的表示该颜色的色调，亮度等信息。
 
-![HSVspace.png](auxiliary\HSVspace.png)
+![HSVspace.png](auxiliary/HSVspace.png)
 
 HSV三个值中：
 H全称为Hue色调，在圆锥中为绕圆锥轴的水平角。其表示了颜色种类，范围0-360度，随数值变化颜色色调渐变循环。
 S全称为Saturation饱和度，在圆锥中为距离圆锥轴的水平距离。其揭示了色彩的饱满程度（越高颜色越明显，越低颜色越接近黑白灰，具体黑白灰取决于明度），范围0-1。
 V全称为明度Value，在圆锥中指距离圆锥尖的垂直距离。其表示该色彩的明亮程度（越高越亮越白，反之越暗越黑），范围0-1。
 
-![HSV.jpg](auxiliary\HSV.jpg)
+![HSV.jpg](auxiliary/HSV.jpg)
 
 由此，只要将颜色信息从RGB值转换到HSV值（或者说RGB立方体空间转换到HSV圆锥空间），我们就能获取到直观的亮度，对比度，色调信息。
 
@@ -57,7 +57,7 @@ $$
 
 色调公式尽管复杂，但道理很简单，将360度角度分为3部分，RGB各占1/3区域。RGB中哪个值最大，就在哪个区域中；在该区域中，RGB中剩下两个值哪个大，就更偏向于哪一侧。（这将同时保证RGB值中最大值对应区域的对侧，是其值最小的区域；另外60度角所乘的分式，其范围为-1~1，因此最大值为R或G或B的三个情况各占120度）
 
-![HSV2.png](auxiliary\HSV2.png)
+![HSV2.png](auxiliary/HSV2.png)
 
 **HSV->RGB**
 
@@ -118,7 +118,7 @@ $$
 \end{equation*}\\
 $$
 
-![HSV3.png](auxiliary\HSV3.png)
+![HSV3.png](auxiliary/HSV3.png)
 
 ##### 代码
 
