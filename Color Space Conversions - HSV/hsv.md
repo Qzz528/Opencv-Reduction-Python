@@ -4,13 +4,13 @@
 
 对于彩色图片的每个像素点，其颜色由RGB三个维度的值表示，RGB分别代表红色、绿色、蓝色成分的多少。因此一组RGB值（对应RGB立方体内的每一个点）代表了一种颜色，反之亦然，任意一种颜色可用一组RGB值表示（是RGB立方体内的一个点）。
 
-![RGBspace.png](auxiliary/RGBspace.png)
+![RGBspace.png](auxiliary\RGBspace.png)
 
 但对于人而言，对一个颜色，直观感知到的是其色调、亮度等信息，而这些信息在RGB值的表示下并不直观。单看RGB值的大小，人很难感受到其对应的色调等信息，自然也不便于对其修改。
 
 通过定义一种映射变换，将RGB立方体映射为HSV圆锥（或者圆柱）：RGB立方体的每一个位置（每一种颜色），都有一个对应的HSV圆锥中的位置。这样任意一种颜色将对应一组HSV值（即HSV圆锥中的一个位置），而这个HSV值可以直观的表示该颜色的色调，亮度等信息。
 
-![HSVspace.png](auxiliary/HSVspace.png)
+![HSVspace.png](auxiliaryH/SVspace.png)
 
 HSV三个值中：
 H全称为Hue色调，在圆锥中为绕圆锥轴的水平角。其表示了颜色种类，范围0-360度，随数值变化颜色色调渐变循环。
