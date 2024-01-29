@@ -40,7 +40,7 @@ def threshold(src, thresh, maxval, type):
     h,w = src.shape
     dst = src.copy()
     for i in range(h):
-        for j in range(w):            
+        for j in range(w):  
             if type == 0:
                 dst[i,j] = maxval if dst[i,j]>thresh else 0
             elif type == 1:
