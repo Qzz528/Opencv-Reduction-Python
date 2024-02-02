@@ -7,7 +7,7 @@ dst = cv2.blur(src,ksize)
 
 import numpy as np
 import cv2
-from opencv_copyMakeBorder import makeborder_numpy, makeborder
+from copyMakeBorder import makeborder_numpy, makeborder
 
 
 
