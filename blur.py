@@ -11,7 +11,7 @@ from copyMakeBorder import makeborder_numpy, makeborder
 
 
 
-def blur_avg(src,ksize,borderType=4,value=0,srd = False): #**kwargs
+def blur(src,ksize,borderType=4,value=0,srd = False): #**kwargs
     kh,kw = ksize
     h,w = src.shape[:2]
     # ph = kh-1
@@ -54,16 +54,16 @@ if __name__ == '__main__':
 
     
     print(cv2.blur(x,(2,2)))
-    print(blur_avg(x,(2,2)))
+    print(blur(x,(2,2)))
     print('\n')
 
     print(cv2.blur(x,(2,2),borderType=1))
-    print(blur_avg(x,(2,2),borderType=1))
+    print(blur(x,(2,2),borderType=1))
     print('\n')
 
     
     print(cv2.blur(y,(2,2)))
     print('\n')
-    print(blur_avg(y,(2,2)))
+    print(blur(y,(2,2)))
     
     

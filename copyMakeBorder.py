@@ -2,7 +2,7 @@
 """
 copyMakeBorder
 
-滤波计算前的必备
+滤波计算前的必备，对图像边缘进行填充
 dst = cv2.copyMakeBorder(src, top, bottom, left, right, borderType, value)
 
 src:图像矩阵（支持多通道）
@@ -20,7 +20,7 @@ import numpy as np
 import cv2
 
 #利用numpy方法复现
-def makeborder_numpy(src,top,bottom,left,right,borderType=4,value=0):
+def copyMakeBorder_numpy(src,top,bottom,left,right,borderType=4,value=0):
     #注意opencv和numpy填充名不同，特别注意numpy的reflect对应的是opencv的DEFAULT
     mode = ['constant','edge','symmetric','wrap','reflect']
     
@@ -39,7 +39,7 @@ def makeborder_numpy(src,top,bottom,left,right,borderType=4,value=0):
         return
 
 #手动拼接复现        
-def makeborder(src,top,bottom,left,right,borderType=4,value=0):
+def copyMakeBorder(src,top,bottom,left,right,borderType=4,value=0):
     n_dims = len(src.shape)
     h,w = src.shape[:2]
     # global dst
@@ -65,9 +65,9 @@ def makeborder(src,top,bottom,left,right,borderType=4,value=0):
     #要在边缘填充的内容，其在src中的位置序号
     if borderType == 1:
         pad_index_top = [0]*top 
-        pad_index_bottom = [-1]*bottom
+        pad_index_bottom = [h-1]*bottom
         pad_index_left = [0]*left
-        pad_index_right = [-1]*right
+        pad_index_right = [w-1]*right
         
     elif borderType == 2:
         seq = list(np.arange(h)) + list(np.arange(h-1,-1,-1))
@@ -115,7 +115,7 @@ def makeborder(src,top,bottom,left,right,borderType=4,value=0):
     for i,j in zip(range(bottom),pad_index_bottom):
         dst[-i-1, left:-right if right else None] = src[j,:] 
     #按填充完dst对应的index列填充左部右部（使用dst填充可以一次性填充四角）
-    #dst是src的扩充，dst对应的列index=left+src对应的列index
+    #dst是src的扩充，dst对应的列index = left+src对应的列index
     for i,j in zip(range(left),pad_index_left):
         dst[:,i] = dst[:,left+j]
     for i,j in zip(range(right),pad_index_right):
@@ -132,6 +132,15 @@ if __name__ == '__main__':
     
     for i in range(5):
         print(cv2.copyMakeBorder(src, 2, 2, 2, 2, i))
-        print(makeborder_numpy(src,2,2,2,2,i))
-        print(makeborder(src,2,2,2,2,i))
+        print(copyMakeBorder_numpy(src,2,2,2,2,i))
+        print(copyMakeBorder(src,2,2,2,2,i))
         print('\n')
+
+    src = cv2.imread("./pics/LenaRGB.bmp")
+    for i in range(5):
+        dst = copyMakeBorder(src,32,32,32,32,i)
+        cv2.imwrite(f"./pics/copyMakeBorder/copyMakeBorder-{i}.jpg",dst)
+        dst = copyMakeBorder_numpy(src,32,32,32,32,i)
+        cv2.imwrite(f"./pics/copyMakeBorder/copyMakeBorder-{i}_np.jpg",dst)
+        dst = cv2.copyMakeBorder(src,32,32,32,32,i)
+        cv2.imwrite(f"./pics/copyMakeBorder/copyMakeBorder-{i}_cv.jpg",dst)
