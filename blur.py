@@ -1,17 +1,21 @@
 # -*- coding: utf-8 -*-
 """
 blur
-
+对图像进行均值滤波
 dst = cv2.blur(src,ksize)
+src:图像矩阵（支持多通道）
+ksize:双元素tuple，(kh,kw)，分别为滤波器核的高和宽
+RETURN
+dst:填充边缘后的图像矩阵
 """
 
 import numpy as np
 import cv2
-from copyMakeBorder import makeborder_numpy, makeborder
+from copyMakeBorder import copyMakeBorder_numpy, copyMakeBorder
 
 
 
-def blur(src,ksize,borderType=4,value=0,srd = False): #**kwargs
+def blur(src,ksize,borderType=4,value=0,srd = True): #**kwargs
     kh,kw = ksize
     h,w = src.shape[:2]
     # ph = kh-1
@@ -24,14 +28,14 @@ def blur(src,ksize,borderType=4,value=0,srd = False): #**kwargs
         bottom = kh-1-top
         left = (kw-1)//2
         right = kw-1-left
-    else: #opencv使用的填充方式是左上方填充
+    else: #左上方填充
         top = kh-1
         left = kw-1
         bottom = 0
         right = 0
     
     #先扩充src确保运算后dst大小与原src一致
-    pad_src = makeborder(src,top,bottom,left,right,borderType,value)
+    pad_src = copyMakeBorder(src,top,bottom,left,right,borderType,value)
     
     
     kernel = 1/(kh*kw)*np.ones((kh,kw))
@@ -49,21 +53,26 @@ def blur(src,ksize,borderType=4,value=0,srd = False): #**kwargs
 if __name__ == '__main__':
     
     x = np.arange(1,10).reshape(3,3)
-    y = np.dstack((x,x,x))
+    #y = np.dstack((x,x,x))
     
 
     
     print(cv2.blur(x,(2,2)))
-    print(blur(x,(2,2)))
+    print(blur(x,(2,2),srd=False))
     print('\n')
 
-    print(cv2.blur(x,(2,2),borderType=1))
-    print(blur(x,(2,2),borderType=1))
-    print('\n')
+    for i in range(5):
+        print(cv2.blur(x,(2,2),borderType=1))
+        print(blur(x,(2,2),borderType=1,srd=False))
+        print('\n')
 
     
-    print(cv2.blur(y,(2,2)))
-    print('\n')
-    print(blur(y,(2,2)))
+    #print(cv2.blur(y,(2,2)))
+    #print('\n')
+    #print(blur(y,(2,2)))
     
-    
+    src = cv2.imread("./pics/LenaRGB.bmp")
+    dst = blur(src,(9,9))
+    cv2.imwrite(f"./pics/blur/blur_avg.jpg",dst)
+    dst = cv2.blur(src,(9,9))
+    cv2.imwrite(f"./pics/blur/blur_avg_cv.jpg",dst)    

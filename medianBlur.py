@@ -7,11 +7,11 @@ dst = cv2.medianBlur(src,ksize)
 
 import numpy as np
 import cv2
-from opencv_copyMakeBorder import makeborder_numpy, makeborder
+from copyMakeBorder import copyMakeBorder_numpy, copyMakeBorder
 
 
 
-def blur_median(src,ksize,borderType=2,value=0,srd = True): #**kwargs
+def medianBlur(src,ksize,borderType=2,value=0,srd = True): #**kwargs
     kh,kw = ksize,ksize #ksize只接受整数，核高宽一致
     h,w = src.shape[:2]
 
@@ -30,7 +30,7 @@ def blur_median(src,ksize,borderType=2,value=0,srd = True): #**kwargs
         right = 0
     
     #先扩充src确保运算后dst大小与原src一致
-    pad_src = makeborder(src,top,bottom,left,right,borderType,value)
+    pad_src = copyMakeBorder(src,top,bottom,left,right,borderType,value)
     
     dst = np.zeros_like(src)
     
@@ -57,14 +57,19 @@ def blur_median(src,ksize,borderType=2,value=0,srd = True): #**kwargs
 if __name__ == '__main__':
     
     x = np.arange(1,10).reshape(3,3).astype('uint8') #(3,3)
-    y = np.dstack((x,x,x)) #(3,3,3channel)
+    #y = np.dstack((x,x,x)) #(3,3,3channel)
     
 
     print(cv2.medianBlur(x,3))
-    print(blur_median(x,3))
+    print(medianBlur(x,3))
     print('\n')
     
 
-    print(cv2.medianBlur(y,3))
-    print(blur_median(y,3))    
+    #print(cv2.medianBlur(y,3))
+    #print(blur_median(y,3))    
     
+    src = cv2.imread("./pics/LenaRGB.bmp")
+    dst = medianBlur(src,9)
+    cv2.imwrite(f"./pics/blur/blur_median.jpg",dst)
+    dst = cv2.medianBlur(src,9)
+    cv2.imwrite(f"./pics/blur/blur_median_cv.jpg",dst)  
