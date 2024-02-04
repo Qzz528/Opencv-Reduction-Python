@@ -12,7 +12,7 @@ templ：所要进行匹配的模板，array，尺寸为（h，w）
 
 计算对应程度是针对两个同样大小的图片，也即是templ的尺寸（h，w）。计算过程中，对所要检测的图像image是按滑窗平移，按行列逐个的截取其一部分与templ进行计算，得到结果中的一个值（与卷积类似）。因此结果尺寸为（H-h+1，W-w+1）
 
-![matchTemplate.gif](md_pics/matchTemplate.gif)
+![matchTemplate.gif](md_pics/matchTemplate/matchTemplate.gif)
 
 method：取值0-5，表示不同的计算对应程度的方法。
 
