@@ -66,7 +66,7 @@ if __name__ == '__main__':
     print(minMaxLoc(src))
 
     src = cv2.imread("./pics/LenaRGB.bmp")
-    gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)#单通道才能使用
     print(cv2.minMaxLoc(gray))
     print(minMaxLoc_numpy(gray))  
     print(minMaxLoc(gray))

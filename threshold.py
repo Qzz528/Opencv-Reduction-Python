@@ -62,3 +62,14 @@ for i in range(5):
     print(threshold_numpy(src, thresh=3, maxval=10, type=i))   
     print(threshold(src, thresh=3, maxval=10, type=i)) 
     print('\n')
+
+
+src = cv2.imread("./pics/LenaRGB.bmp")
+gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)#单通道才能使用
+for i in range(5):
+    thresh,dst = threshold(gray,thresh=127,maxval=255,type=i)
+    cv2.imwrite(f"./pics/threshold/threshold-{i}.jpg",dst)
+    thresh,dst = threshold_numpy(gray,thresh=127,maxval=255,type=i)
+    cv2.imwrite(f"./pics/threshold/threshold-{i}_np.jpg",dst)
+    thresh,dst = cv2.threshold(gray,thresh=127,maxval=255,type=i)
+    cv2.imwrite(f"./pics/threshold/threshold-{i}_cv.jpg",dst)
