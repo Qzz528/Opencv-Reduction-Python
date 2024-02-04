@@ -63,7 +63,6 @@ if __name__ == '__main__':
     print(cv2.medianBlur(x,3))
     print(medianBlur(x,3))
     print('\n')
-    
 
     #print(cv2.medianBlur(y,3))
     #print(blur_median(y,3))    

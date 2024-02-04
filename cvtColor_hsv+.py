@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
+'''
+H:0~180
+S:0~255
+V:0~255
+'''
 
 import cv2
 import numpy as np
 
-'创建示例，单个像素'
-rgb = np.zeros((1,1,3),'uint8')
-rgb[:,:,0] = 10 #R
-rgb[:,:,1] = 20 #G
-rgb[:,:,2] = 45 #B
 
 
-'自写方法'
-def rgb2hsv(rgb):#入参rgb为uint8格式
+
+#自写方法
+def RGB2HSV(rgb):#入参rgb为uint8格式
 
     H,W,C = rgb.shape #获取图片尺寸
     hsv = np.zeros_like(rgb,float) 
@@ -48,7 +49,7 @@ def rgb2hsv(rgb):#入参rgb为uint8格式
     return hsv.astype('uint8') #输出时格式转为uint8
 
 
-def hsv2rgb(hsv):#入参hsv为uint8格式
+def HSV2RGB(hsv):#入参hsv为uint8格式
     #还原因为uint8格式而受限的hsv范围，S&V：0~255->0~1，H：0~180->0~360  
     h,s,v =  hsv[:,:,0]*2,hsv[:,:,1]/255,hsv[:,:,2]/255
     
@@ -101,14 +102,21 @@ def hsv2rgb(hsv):#入参hsv为uint8格式
     return rgb.astype('uint8') #输出时格式转为uint8
 
 
+if __name__ == "__main__":
+    #创建示例，单个像素
+    rgb = np.zeros((1,1,3),'uint8')
+    rgb[:,:,0] = 10 #R
+    rgb[:,:,1] = 20 #G
+    rgb[:,:,2] = 45 #B
 
-'调用函数'
-#RGB->HSV
-hsv1 = cv2.cvtColor(rgb,cv2.COLOR_RGB2HSV) #opencv现成方法
-hsv2 = rgb2hsv(rgb) #自写方法
-print(hsv1,hsv2) #[[[111 198  45]]] [[[111 198  45]]]
+    #RGB->HSV
+    hsv1 = cv2.cvtColor(rgb,cv2.COLOR_RGB2HSV) #opencv现成方法
+    hsv2 = RGB2HSV(rgb) #自写方法
+    print(hsv1,hsv2) #[[[111 198  45]]] [[[111 198  45]]]
 
-#HSV->RGB
-re_rgb1 = cv2.cvtColor(hsv1, cv2.COLOR_HSV2RGB)
-re_rgb2 = hsv2rgb(hsv2)
-print(re_rgb1,re_rgb2) #[[[10 21 45]]] [[[10 21 45]]]
+    #HSV->RGB
+    re_rgb1 = cv2.cvtColor(hsv1, cv2.COLOR_HSV2RGB)
+    re_rgb2 = HSV2RGB(hsv2)
+    print(re_rgb1,re_rgb2) #[[[10 21 45]]] [[[10 21 45]]]
+
+    
