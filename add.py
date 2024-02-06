@@ -83,18 +83,14 @@ if __name__ == '__main__':
     print(addWeighted_numpy(x,0.5,y,0.5,0))
     
     
-    src = cv2.imread("./pics/LenaRGB.bmp")
-    
-    #print(cv2.blur(y,(2,2)))
-    #print('\n')
-    #print(blur(y,(2,2)))
-    
-    #src = cv2.imread("./pics/LenaRGB.bmp")
-    #dst = blur(src,(9,9))
-    #cv2.imwrite(f"./pics/blur/blur_avg.jpg",dst)
-    #dst = cv2.blur(src,(9,9))
-    #cv2.imwrite(f"./pics/blur/blur_avg_cv.jpg",dst)    
-
+    src1 = cv2.imread("./pics/LenaRGB.bmp")
+    src2 = cv2.imread()
+    dst = src+src
+    cv2.imwrite(f"./pics/add/add_raw.jpg",dst)
+    dst = cv2.add(src,src)
+    cv2.imwrite(f"./pics/add/add_cv.jpg",dst)    
+    dst = add(src,src)
+    cv2.imwrite(f"./pics/add/add.jpg",dst)    
     #raw add(over)
 
     #降噪
