@@ -50,6 +50,7 @@ def addWeighted_numpy(src1,w1,src2,w2,b):
     dst = np.clip(dst,0,255)
     #或
     dst[dst>255] = 255
+    dst[dst<0] = 0
     return dst.astype('uint8')
 
 def addWeighted(src1,w1,src2,w2,b):
@@ -63,16 +64,17 @@ def addWeighted(src1,w1,src2,w2,b):
         for j in range(w):
             if c:
                 for k in range(c):
-                    dst[i,j,k] = min(w1*int(src1[i,j,k])+w2*int(src2[i,j,k])+b,255)
+                    val = w1*int(src1[i,j,k])+w2*int(src2[i,j,k])+b
+                    dst[i,j,k] = max(min(val,255),0)
             else:
-                 dst[i,j] = min(w1*int(src1[i,j])+w2*int(src2[i,j])+b,255)
+                val = w1*int(src1[i,j])+w2*int(src2[i,j])+b
+                dst[i,j] = max(min(val,255),0)
     return dst
 
 
 if __name__ == '__main__':
     
     x = 20*np.arange(1,10).reshape(3,3).astype('uint8')
-    #y = np.dstack((x,x,x))
     print(cv2.add(x,x))
     print(add_numpy(x,x))
     print(add(x,x))
@@ -84,17 +86,18 @@ if __name__ == '__main__':
     
     
     src1 = cv2.imread("./pics/LenaRGB.bmp")
-    src2 = cv2.imread()
-    dst = src+src
+    src2 = cv2.imread("./pics/sailboat.bmp")
+
+    dst = src1+src2
     cv2.imwrite(f"./pics/add/add_raw.jpg",dst)
-    dst = cv2.add(src,src)
+    dst = cv2.add(src1,src2)
     cv2.imwrite(f"./pics/add/add_cv.jpg",dst)    
-    dst = add(src,src)
-    cv2.imwrite(f"./pics/add/add.jpg",dst)    
-    #raw add(over)
+    dst = add(src1,src2)
+    cv2.imwrite(f"./pics/add/add.jpg",dst)   
 
-    #降噪
-
-    #两者融合去模糊
-
-    #两图叠加
+    dst=0.7*src1+0.3*src2-10
+    cv2.imwrite(f"./pics/add/addWeighted_raw.jpg",dst)
+    dst=cv2.addWeighted(src1,0.7,src2,0.3,-10)
+    cv2.imwrite(f"./pics/add/addWeighted_cv.jpg",dst)
+    dst=addWeighted(src1,0.7,src2,0.3,-10)
+    cv2.imwrite(f"./pics/add/addWeighted.jpg",dst)

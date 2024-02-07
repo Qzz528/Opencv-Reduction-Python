@@ -6,7 +6,8 @@ Created on Mon Feb  5 09:04:02 2024
 """
 import cv2
 img = cv2.imread("F:\LenaRGB.bmp")
-
+    #直接相加，像素值超过255会从0重新开始造成颜色混乱
+    #cv2.add尽管没有颜色混乱，但两个图像素直接相加导致像素值增大
 print(img.shape)
 
 blur_u = cv2.blur(img[:255,:,:],(11,11))
