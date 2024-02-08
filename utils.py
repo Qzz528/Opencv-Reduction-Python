@@ -183,7 +183,7 @@ def filter2D(src,kernel,borderType=4,anchor=(-1,-1),value=0):
     #先扩充src确保运算后dst大小与原src一致
     pad_src = copyMakeBorder(src,top,bottom,left,right,borderType,value)
     
-    dst = np.zeros_like(src)
+    dst = np.zeros_like(src).astype(float)
     #逐行逐列的进行卷积
     for i in range(h):
         for j in range(w):
