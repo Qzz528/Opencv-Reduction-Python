@@ -2,7 +2,7 @@
 import numpy as np
 import cv2
 from utils import filter2D, getGaussianKernel, copyMakeBorder
-from checktools import MaxError
+from checktools import MaxError,ParamsCheck
 
 "dst = cv2.blur(src,ksize)"
 #对图像进行均值滤波 
@@ -119,7 +119,14 @@ if __name__ == '__main__':
     src = cv2.imread("./pics/LenaRGB.bmp")
     src = cv2.resize(src,(64,64))
 
-    
+    params={'src' :src,
+            'ksize': [(8,8),(9,9),(8,9),(9,8)],
+            'borderType': [0,1,2,4],
+            'anchor': [(-1,-1),(3,3),(4,4),(3,4),(4,3)],
+            }
+    ParamsCheck(cv2.blur,blur,params)
+
+    '''
     print('#'*10,'check function: blur','#'*10)
     for ksize in [(8,8),(9,9),(8,9),(9,8)]:
         for borderType in [0,1,2,4]:
@@ -170,3 +177,4 @@ if __name__ == '__main__':
     #cv2.imwrite(f"./pics/blur/blur_avg.jpg",dst)
     #dst = cv2.blur(src,(9,9))
     #cv2.imwrite(f"./pics/blur/blur_avg_cv.jpg",dst)    
+    '''
