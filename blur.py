@@ -2,7 +2,7 @@
 import numpy as np
 import cv2
 from utils import filter2D, getGaussianKernel, copyMakeBorder
-from utils import MaxError
+from checktools import MaxError
 
 "dst = cv2.blur(src,ksize)"
 #对图像进行均值滤波 

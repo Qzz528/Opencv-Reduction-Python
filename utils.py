@@ -3,13 +3,6 @@
 import numpy as np
 import cv2
 
-#计算自写方法和opencv方法的最大像素差
-def MaxError(dst1, dst2):
-    dst1 = dst1.astype(float)
-    dst2 = dst2.astype(float)
-    err = np.abs(dst1-dst2)
-    return err.max()
-
 
 'dst = cv2.copyMakeBorder(src, top, bottom, left, right, borderType, value)'
 #滤波计算前的准备，对图像边缘进行填充
