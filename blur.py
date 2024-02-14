@@ -118,13 +118,13 @@ if __name__ == '__main__':
 
     src = cv2.imread("./pics/LenaRGB.bmp")
     src = cv2.resize(src,(64,64))
-
-    params={'src' :src,
+    fixed_params={'src' :src,}
+    params={
             'ksize': [(8,8),(9,9),(8,9),(9,8)],
             'borderType': [0,1,2,4],
             'anchor': [(-1,-1),(3,3),(4,4),(3,4),(4,3)],
             }
-    ParamsCheck(cv2.blur,blur,params)
+    ParamsCheck(cv2.blur,blur,params,fixed_params)
 
     '''
     print('#'*10,'check function: blur','#'*10)
