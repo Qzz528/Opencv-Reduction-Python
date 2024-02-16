@@ -11,7 +11,7 @@ dst:填充边缘后的图像矩阵
 
 import numpy as np
 import cv2
-from checktools import MaxError
+from checktools import MaxError,ParamsCheck
 
 
 def add_numpy(src1,src2): 
@@ -100,7 +100,11 @@ if __name__ == '__main__':
     src1_gray = cv2.cvtColor(src1,cv2.COLOR_BGR2GRAY)
     src2_gray = cv2.cvtColor(src2,cv2.COLOR_BGR2GRAY)
 
-    
+    params={'src1':[src1],
+                  'src2':[src2,100]}
+    ParamsCheck(cv2.add,add,params)
+
+    '''
     print('#'*10,'check function: add','#'*10)
     for img in [100,src2]:
         add_cv = cv2.add(src1,img)
@@ -138,3 +142,4 @@ if __name__ == '__main__':
     #cv2.imwrite(f"./pics/add/addWeighted_cv.jpg",dst)
     #dst=addWeighted(src1,0.7,src2,0.3,-10)
     #cv2.imwrite(f"./pics/add/addWeighted.jpg",dst)
+'''

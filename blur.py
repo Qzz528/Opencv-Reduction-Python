@@ -118,63 +118,41 @@ if __name__ == '__main__':
 
     src = cv2.imread("./pics/LenaRGB.bmp")
     src = cv2.resize(src,(64,64))
-    fixed_params={'src' :src,}
+
+
+    print('#'*10,'check function: blur','#'*10)
     params={
+            'src' :[src],    
             'ksize': [(8,8),(9,9),(8,9),(9,8)],
             'borderType': [0,1,2,4],
             'anchor': [(-1,-1),(3,3),(4,4),(3,4),(4,3)],
             }
-    ParamsCheck(cv2.blur,blur,params,fixed_params)
+    ParamsCheck(cv2.blur,blur,params)
 
-    '''
-    print('#'*10,'check function: blur','#'*10)
-    for ksize in [(8,8),(9,9),(8,9),(9,8)]:
-        for borderType in [0,1,2,4]:
-            for anchor in [(-1,-1),(3,3),(4,4),(3,4),(4,3)]:
-                dst_cv = cv2.blur(src,ksize,borderType=borderType,anchor=anchor)
-                dst = blur(src,ksize,borderType,anchor)
-                print('ksize:',ksize, '|',
-                      'borderType:',borderType,'|',
-                      'anchor:',anchor,'|',
-                      'max_error:', MaxError(dst_cv,dst))
-    print('#'*40)
-
-    #print('#'*10,'check function: boxFilter','#'*10)
-    #for ksize in [(8,8),(9,9),(8,9),(9,8)]:
-    #    for borderType in [0,1,2,4]:
-    #        for anchor in [(-1,-1),(3,3),(4,4),(3,4),(4,3)]:
-    #            dst_cv = cv2.boxFilter(src,-1,ksize,borderType=borderType,anchor=anchor,normalize=False)
-    #            dst = boxFilter(src,ksize,False,borderType,anchor)
-    #            print('ksize:',ksize, '|',
-    #                  'borderType:',borderType,'|',
-    #                  'anchor:',anchor,'|',
-    #                  'max_error:', MaxError(dst_cv,dst))
-    #print('#'*40)
 
     print('#'*10,'check function: medianBlur','#'*10)
-    for ksize in [5,9,15]:
-        dst_cv = cv2.medianBlur(src,ksize)
-        dst = medianBlur(src,ksize)
-        print('ksize:',ksize, '|',
-              'max_error:', MaxError(dst_cv,dst))
-    print('#'*40)
-    
-    print('#'*10,'check function: GaussianBlur','#'*10)
-    for ksize in [(9,9),(5,5),(9,5),(5,9)]:
-        for borderType in [0,1,2,4]:
-            for sigmaX,sigmaY in [(1,1),(2,2),(1,2),(2,1),(1,0)]:
-                dst_cv = cv2.GaussianBlur(src,ksize,sigmaX,sigmaY=sigmaY,borderType=borderType)
-                dst = GaussianBlur(src,ksize,sigmaX,sigmaY,borderType)
+    params={
+           'src' :[src],  
+           'ksize': [5,9,15],
+           }
+    ParamsCheck(cv2.medianBlur,medianBlur,params)
 
-                print('ksize:',ksize, '|',
-                      'borderType:',borderType,'|',
-                      'sigmaX,sigmaY:',sigmaX,sigmaY,'|',
-                      'max_error:', MaxError(dst_cv,dst))
-    print('#'*40)
+
+
+    print('#'*10,'check function: GaussianBlur','#'*10)
+    params={
+        'src' :[src],  
+        'ksize': [(9,9),(5,5),(9,5),(5,9)],
+        'borderType': [0,1,2,4],
+        'sigmaX': [1,2],
+        'sigmaY':[0,1,2],
+        }
+        
+    ParamsCheck(cv2.GaussianBlur,GaussianBlur,params)
 
     #src = cv2.imread("./pics/LenaRGB.bmp")
     #dst = blur(src,(9,9))
     #cv2.imwrite(f"./pics/blur/blur_avg.jpg",dst)
     #dst = cv2.blur(src,(9,9))
     #cv2.imwrite(f"./pics/blur/blur_avg_cv.jpg",dst)    
-    '''
+    
